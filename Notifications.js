@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, View, Text } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 
 export default class ButtonBasics extends Component {
     render() {
         return (
-            <Text>Valami</Text>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <Button onPress={() => navigation.goBack()} title="Go back home" />
+            </View>
         );
     }
 }

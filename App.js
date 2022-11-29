@@ -2,37 +2,39 @@ import React from 'react';
 import { Button, View } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import Schedule from './Schedule'
+import Schedule from './Schedules'
 import AdminOldal from './AdminPage'
+import FoOldal from './MainPage'
+import Ertesitesek from './Notifications'
+import Fiok from './Profile'
 
 function MainPage({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button
-        onPress={() => navigation.navigate('Notifications')}
-        title="Go to notifications"
-      />
-    </View>
+    <FoOldal />
   );
 }
 
 function NotificationsScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
-    </View>
+    <Ertesitesek />
   );
 }
 
-function Schedule({ navigation }) {
+function Buses({ navigation }) {
   return (
-   <Schedule />
+    <Schedule />
   );
 }
 
 function SignInbtn({ navigation }) {
   return (
-   <AdminOldal />
+    <AdminOldal />
+  );
+}
+
+function Profil({ navigation }) {
+  return (
+    <Fiok />
   );
 }
 
@@ -42,9 +44,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator useLegacyImplementation initialRouteName="Főoldal">
+        <Drawer.Screen name="Fiók" component={Profil} />
         <Drawer.Screen name="Főoldal" component={MainPage} />
         <Drawer.Screen name="Értesítések" component={NotificationsScreen} />
-        <Drawer.Screen name="Járatok" component={Schedule} />
+        <Drawer.Screen name="Járatok" component={Buses} />
         <Drawer.Screen name="Bejelentkezés" component={SignInbtn} />
       </Drawer.Navigator>
     </NavigationContainer>
