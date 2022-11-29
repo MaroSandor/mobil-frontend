@@ -7,6 +7,7 @@ import AdminOldal from './AdminPage'
 import FoOldal from './MainPage'
 import Ertesitesek from './Notifications'
 import Fiok from './Profile'
+import Ertekeles from './Rating2'
 
 function MainPage({ navigation }) {
   return (
@@ -38,6 +39,12 @@ function Profil({ navigation }) {
   );
 }
 
+function Rating({ navigation }) {
+  return (
+    <Ertekeles />
+  );
+}
+
 const Drawer = createDrawerNavigator();
 
 export default function App() {
@@ -49,6 +56,7 @@ export default function App() {
         <Drawer.Screen name="Értesítések" component={NotificationsScreen} />
         <Drawer.Screen name="Járatok" component={Buses} />
         <Drawer.Screen name="Bejelentkezés" component={SignInbtn} />
+        <Drawer.Screen name="Értékelés" component={Rating} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
