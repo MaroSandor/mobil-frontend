@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, StyleSheet, View, Text, TextInput } from "react-native";
-import { Rating, AirbnbRating } from "react-native-ratings";
+import { AirbnbRating } from "react-native-ratings";
 
 export default class Bevitel extends Component {
     constructor(props) {
@@ -37,18 +37,7 @@ export default class Bevitel extends Component {
         } catch (error) {
             console.log(error);
         } finally {
-        }
-    };
-
-    async getJarat(ertek) {
-        try {
-            const response = await fetch("https://localhost:3000/jaratok");
-            const json = await response.json();
-            this.setState({ jaratok: json.articles });
-        } catch (error) {
-            console.log(error);
-        } finally {
-            this.setState({ isLoading: false });
+            console.log(null)
         }
     }
 
@@ -56,7 +45,6 @@ export default class Bevitel extends Component {
         return (
             <View style={styles.main_content}>
                 {/* PICKER elhelyezése ide! */}
-                
                 {/* PICKER elhelyezése ide! */}
                 <Text style={styles.rate_text}>Kényelem<Text style={styles.required_text}>*</Text></Text>
                 <AirbnbRating
