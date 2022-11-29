@@ -3,11 +3,11 @@ import { Button, View } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Schedule from './Schedules'
-import AdminOldal from './AdminPage'
-import FoOldal from './MainPage'
-import Ertesitesek from './Notifications'
-import Fiok from './Profile'
-import Ertekeles from './Rating2'
+import AdminOldal from './components/AdminPage'
+import FoOldal from './components/MainPage'
+import Ertesitesek from './components/Notifications'
+import Fiok from './components/Profile'
+import Ertekeles from './Rating3'
 
 function MainPage({ navigation }) {
   return (

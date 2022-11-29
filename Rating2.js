@@ -7,9 +7,10 @@ export default class Bevitel extends Component {
         super(props);
 
         this.state = {
+            jaratok: [],
             velemeny: "",
             WATER_IMAGE: require("./assets/favicon.png"),
-            rating: ""
+            rating: "",
         };
     }
 
@@ -21,69 +22,84 @@ export default class Bevitel extends Component {
         //alert(this.props.akttema)
         try {
             let adatok = {
-                bevitel1: this.state.velemeny,
+                bevitel1: "",
                 bevitel2: "",
                 bevitel3: "",
-                bevitel4: "",
-            }
-            const response = await fetch('http://192.168.6.22:3000/felvitel',
-                {
-                    method: "POST",
-                    body: JSON.stringify(adatok),
-                    headers: { "Content-type": "application/json; charset=UTF-8" }
-                }
-            );
+                bevitel4: this.state.velemeny,
+            };
+            const response = await fetch("http://192.168.0.1:24001/felvitel", {
+                method: "POST",
+                body: JSON.stringify(adatok),
+                headers: { "Content-type": "application/json; charset=UTF-8" },
+            });
             const szoveg = await response.text();
-            alert(szoveg)
+            alert(szoveg);
         } catch (error) {
             console.log(error);
         } finally {
+        }
+    };
+
+    async getJarat(ertek) {
+        try {
+            const response = await fetch("https://localhost:3000/jaratok");
+            const json = await response.json();
+            this.setState({ jaratok: json.articles });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            this.setState({ isLoading: false });
         }
     }
 
     render() {
         return (
             <View style={styles.main_content}>
-                <View style={styles.buttonContainer}>
-                    
-                    <Text style={styles.rate_text}>Kényelem</Text>
-                    <AirbnbRating
-                        count={5}
-                        onFinishRating={this.ratingCompleted}
-                        reviews={["Rossz", "Elmegy", "Jó", "Nagyon jó", "Elképesztő"]}
-                        defaultRating={5}
-                        size={40}
-                    />
-                    <Text style={styles.rate_text}>Idő</Text>
-                    <AirbnbRating
-                        count={5}
-                        onFinishRating={this.ratingCompleted}
-                        reviews={["Rossz", "Elmegy", "Jó", "Nagyon jó", "Elképesztő"]}
-                        defaultRating={5}
-                        size={40}
-                    />
-                    <Text style={styles.rate_text}>Valami más</Text>
-                    <AirbnbRating
-                        count={5}
-                        onFinishRating={this.ratingCompleted}
-                        reviews={["Rossz", "Elmegy", "Jó", "Nagyon jó", "Elképesztő"]}
-                        defaultRating={5}
-                        size={40}
-                    />
-                    <TextInput
-                        style={styles.rate_comment_input}
-                        placeholder="Mond el a véleményed a járatról..."
-                        onChangeText={(beirtszoveg) =>
-                            this.setState({ velemeny: beirtszoveg })
-                        }
-                        value={this.state.velemeny}
-                    />
+                {/* PICKER elhelyezése ide! */}
+                
+                {/* PICKER elhelyezése ide! */}
+                <Text style={styles.rate_text}>Kényelem<Text style={styles.required_text}>*</Text></Text>
+                <AirbnbRating
+                    count={5}
+                    onFinishRating={this.ratingCompleted}
+                    reviews={["Rossz", "Elmegy", "Közepes", "Jó", "Nagyon jó"]}
+                    defaultRating={5}
+                    size={50}
+                />
+                <Text style={styles.rate_text}>Idő<Text style={styles.required_text}>*</Text></Text>
+                <AirbnbRating
+                    count={5}
+                    onFinishRating={this.ratingCompleted}
+                    reviews={["Rossz", "Elmegy", "Közepes", "Jó", "Nagyon jó"]}
+                    defaultRating={5}
+                    size={50}
+                />
+                <Text style={styles.rate_text}>Valami más<Text style={styles.required_text}>*</Text></Text>
+                <AirbnbRating
+                    count={5}
+                    onFinishRating={this.ratingCompleted}
+                    reviews={["Rossz", "Elmegy", "Közepes", "Jó", "Nagyon jó"]}
+                    defaultRating={5}
+                    size={50}
+                />
+                <TextInput
+                    style={styles.rate_comment_input}
+                    placeholder="Mond el a véleményed a járatról..."
+                    onChangeText={(beirtszoveg) =>
+                        this.setState({ velemeny: beirtszoveg })
+                    }
+                    value={this.state.velemeny}
+                />
+                <View
+                    style={styles.btn_field}
+                >
                     <Button
                         style={styles.felvitel_btn}
                         onPress={() => this.felvitel()}
                         title="Felvitel"
                     />
                 </View>
+
             </View>
         );
     }
@@ -98,10 +114,11 @@ const styles = StyleSheet.create({
     rate_comment_input: {
         height: 125,
         margin: 15,
-        padding: 15,
-        borderWidth: 1,
-        borderRadius: 10,
+        padding: 17,
+        borderWidth: 2,
+        borderRadius: 15,
         textAlignVertical: "top",
+        backgroundColor: "#fff",
     },
 
     rate_text: {
@@ -110,9 +127,19 @@ const styles = StyleSheet.create({
         fontSize: 30,
     },
 
+    required_text: {
+        color: 'red',
+        fontSize: 20,
+    },
+
     felvitel_btn: {
+        alignSelf: "flex-end",
+        position: "relative",
+        bottom: 0,
+    },
+
+    btn_field: {
         position: 'absolute',
         bottom: 0,
-        left: 0,
     }
 });
