@@ -9,16 +9,53 @@ import {
 // # Változók deklarálása
 const jaratok = [];
 const velemeny = "";
-const rating = 0;
 
 // # Függvények létrehozása
-const ratingCompleted = (rating) => {
+const ratingComfort = (rating) => {
+    const rating1 = rating
     return (
-        console.log("Rating is: " + rating)
+        rating1
     )
 }
 
+const ratingTime = (rating) => {
+    const rating2 = rating
+    return (
+        rating2
+    )
+}
+
+const ratingTraffic = (rating) => {
+    const rating3 = rating
+    return (
+        rating3
+    )
+}
+
+felvitel = async () => {
+    /* try {
+        let adatok = {
+            bevitel1: ratingComfort(),
+            bevitel2: ratingTime(),
+            bevitel3: ratingTraffic(),
+            bevitel4: velemeny,
+        };
+        const response = await fetch("http://192.168.0.100:24001/felvitel", {
+            method: "POST",
+            body: JSON.stringify(adatok),
+            headers: { "Content-type": "application/json; charset=UTF-8" },
+        });
+        const szoveg = await response.text();
+        alert(szoveg);
+    } catch (error) {
+        console.log(error);
+    } finally {
+    } */
+};
+
 const App = () => {
+    const [velemeny, onChangeText] = React.useState();
+
     return (
         <View style={styles.main_content}>
             <View style={styles.buttonContainer}>
@@ -26,7 +63,7 @@ const App = () => {
                 <Text style={styles.rate_text}>Kényelem</Text>
                 <AirbnbRating
                     count={5}
-                    onFinishRating={(rating) => ratingCompleted(rating)}
+                    onFinishRating={(rating) => ratingComfort(rating)}
                     reviews={["Rossz", "Elmegy", "Jó", "Nagyon jó", "Elképesztő"]}
                     defaultRating={5}
                     size={40}
@@ -34,7 +71,7 @@ const App = () => {
                 <Text style={styles.rate_text}>Idő</Text>
                 <AirbnbRating
                     count={5}
-                    onFinishRating={(rating) => ratingCompleted(rating)}
+                    onFinishRating={(rating) => ratingTime(rating)}
                     reviews={["Rossz", "Elmegy", "Jó", "Nagyon jó", "Elképesztő"]}
                     defaultRating={5}
                     size={40}
@@ -42,7 +79,7 @@ const App = () => {
                 <Text style={styles.rate_text}>Forgalom</Text>
                 <AirbnbRating
                     count={5}
-                    onFinishRating={(rating) => ratingCompleted(rating)}
+                    onFinishRating={(rating) => ratingTraffic(rating)}
                     reviews={["Rossz", "Elmegy", "Jó", "Nagyon jó", "Elképesztő"]}
                     defaultRating={5}
                     size={40}
@@ -50,14 +87,12 @@ const App = () => {
                 <TextInput
                     style={styles.rate_comment_input}
                     placeholder="Mond el a véleményed a járatról..."
-                    onChangeText={(beirtszoveg) =>
-                        this.setState({ velemeny: beirtszoveg })
-                    }
+                    onChangeText={onChangeText}
                     value={velemeny}
                 />
                 <Button
                     style={styles.felvitel_btn}
-                    onPress={() => this.felvitel()}
+                    onPress={() => felvitel()}
                     title="Felvitel"
                 />
             </View>
