@@ -33,7 +33,6 @@ const ratingTraffic = (rating) => {
 }
 
 felvitel = async () => {
-    alert(velemeny)
     /* try {
         let adatok = {
             bevitel1: ratingComfort(),
@@ -55,9 +54,10 @@ felvitel = async () => {
 };
 
 const App = () => {
-    const [velemeny, onChangeText] = React.useState("");
+    const [text, setText] = React.useState("");
 
     return (
+        text,
         <View style={styles.main_content}>
             <View style={styles.buttonContainer}>
                 {/* IDE JÖN A PICKER */}
@@ -88,8 +88,8 @@ const App = () => {
                 <TextInput
                     style={styles.rate_comment_input}
                     placeholder="Mond el a véleményed a járatról..."
-                    onChangeText={velemeny => onChangeText(velemeny)}
-                    value={velemeny}
+                    onChangeText={(text) => setText(text)}
+                    value={text}
                 />
                 <Button
                     style={styles.felvitel_btn}
