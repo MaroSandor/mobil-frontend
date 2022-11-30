@@ -9,7 +9,6 @@ export default class Bevitel extends Component {
         this.state = {
             jaratok: [],
             velemeny: "",
-            WATER_IMAGE: require("./assets/favicon.png"),
             rating: "",
         };
     }

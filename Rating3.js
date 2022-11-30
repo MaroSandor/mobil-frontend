@@ -13,6 +13,7 @@ const velemeny = "";
 // # Függvények létrehozása
 const ratingComfort = (rating) => {
     const rating1 = rating
+    console.log(rating1)
     return (
         rating1
     )
@@ -20,6 +21,7 @@ const ratingComfort = (rating) => {
 
 const ratingTime = (rating) => {
     const rating2 = rating
+    console.log(rating2)
     return (
         rating2
     )
@@ -27,31 +29,24 @@ const ratingTime = (rating) => {
 
 const ratingTraffic = (rating) => {
     const rating3 = rating
+    console.log(rating3)
     return (
         rating3
     )
 }
 
-felvitel = async () => {
-    /* try {
-        let adatok = {
-            bevitel1: ratingComfort(),
-            bevitel2: ratingTime(),
-            bevitel3: ratingTraffic(),
-            bevitel4: velemeny,
-        };
-        const response = await fetch("http://192.168.0.100:24001/felvitel", {
-            method: "POST",
-            body: JSON.stringify(adatok),
-            headers: { "Content-type": "application/json; charset=UTF-8" },
-        });
-        const szoveg = await response.text();
-        alert(szoveg);
+// # Adatbázisból adatok lekérése és tömbhöz adása
+const jaratokSzama = async () => {
+    try {
+        const response = await fetch('http://192.168.0.222:24001/felvitel');
+        const json = await response.json();
+        setData(json);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     } finally {
-    } */
-};
+        setLoading(false);
+    }
+}
 
 const App = () => {
     const [text, setText] = React.useState("");
