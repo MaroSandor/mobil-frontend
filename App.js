@@ -7,7 +7,7 @@ import AdminOldal from './components/AdminPage'
 import FoOldal from './components/MainPage'
 import Ertesitesek from './components/Notifications'
 import Fiok from './components/Profile'
-import Ertekeles from './Rating3'
+import Ertekeles from './Rating4'
 
 function MainPage({ navigation }) {
   return (

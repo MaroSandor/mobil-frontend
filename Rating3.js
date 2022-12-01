@@ -9,6 +9,7 @@ import {
 // # Változók deklarálása
 const jaratok = [];
 const velemeny = "";
+const ertek = "";
 
 // # Függvények létrehozása
 const ratingComfort = (rating) => {
@@ -36,24 +37,40 @@ const ratingTraffic = (rating) => {
 }
 
 // # Adatbázisból adatok lekérése és tömbhöz adása
-const jaratokSzama = async () => {
+const felvitel = async () => {
+    const [data, setData] = useState([]);
+
     try {
-        const response = await fetch('http://192.168.0.222:24001/felvitel');
+      const response = await fetch('http://192.168.6.22:3000/film');
+      const json = await response.json();
+      console.log(json)
+      setData(json);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  }
+
+/* const felvitel = async () => {
+    try {
+        const response = await fetch('http://192.168.6.40:24001/jaratok');
         const json = await response.json();
-        setData(json); // # ???
     } catch (error) {
         console.error(error);
     } finally {
         setLoading(false);
     }
-}
+} */
 
 const App = () => {
     const [text, setText] = React.useState("");
 
     return (
-        text,
         <View style={styles.main_content}>
+            <View>
+                <Text>{text}</Text>
+            </View>
             <View style={styles.buttonContainer}>
                 {/* IDE JÖN A PICKER */}
                 <Text style={styles.rate_text}>Kényelem</Text>
@@ -84,7 +101,7 @@ const App = () => {
                     style={styles.rate_comment_input}
                     placeholder="Mond el a véleményed a járatról..."
                     onChangeText={(text) => setText(text)}
-                    value={text}
+                    value={this.ertek}
                 />
                 <Button
                     style={styles.felvitel_btn}
@@ -93,7 +110,6 @@ const App = () => {
                 />
             </View>
         </View>
-        // jaratok.map((elem) => <Text>{elem}</Text>)
     )
 }
 

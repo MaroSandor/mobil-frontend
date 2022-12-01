@@ -193,3 +193,31 @@ const styles = StyleSheet.create({
         fontFamily: "sans-serif",
     },
 });
+/*
+// # Adatbázisból adatok lekérése és tömbhöz adása
+const felvitel = async () => {
+    const [data, setData] = useState([]);
+
+    try {
+      const response = await fetch('http://192.168.6.22:3000/film');
+      const json = await response.json();
+      console.log(json)
+      setData(json);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setState({ isLoading: false });
+    }
+  }
+
+/* const felvitel = async () => {
+    try {
+        const response = await fetch('http://192.168.6.40:24001/jaratok');
+        const json = await response.json();
+    } catch (error) {
+        console.error(error);
+    } finally {
+        setLoading(false);
+    }
+}
+*/
