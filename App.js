@@ -1,48 +1,36 @@
-import React from 'react';
-import { Button, View } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { NavigationContainer } from '@react-navigation/native';
-import Schedule from './Schedules'
-import AdminOldal from './components/AdminPage'
-import FoOldal from './components/MainPage'
-import Ertesitesek from './components/Notifications'
-import Fiok from './components/Profile'
-import Ertekeles from './components/Rating'
+import React from "react";
+import { Button, View } from "react-native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { NavigationContainer } from "@react-navigation/native";
+import Schedule from "./Schedules";
+import AdminOldal from "./components/AdminPage";
+import FoOldal from "./components/MainPage";
+import Ertesitesek from "./components/Notifications";
+import Fiok from "./components/Profile";
+import Ertekeles from "./components/Rating";
 
 function MainPage({ navigation }) {
-  return (
-    <FoOldal />
-  );
+  return <FoOldal />;
 }
 
 function NotificationsScreen({ navigation }) {
-  return (
-    <Ertesitesek />
-  );
+  return <Ertesitesek />;
 }
 
 function Buses({ navigation }) {
-  return (
-    <Schedule />
-  );
+  return <Schedule />;
 }
 
 function SignInbtn({ navigation }) {
-  return (
-    <AdminOldal />
-  );
+  return <AdminOldal />;
 }
 
 function Profil({ navigation }) {
-  return (
-    <Fiok />
-  );
+  return <Fiok />;
 }
 
 function Rating({ navigation }) {
-  return (
-    <Ertekeles />
-  );
+  return <Ertekeles />;
 }
 
 const Drawer = createDrawerNavigator();
