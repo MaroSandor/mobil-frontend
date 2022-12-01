@@ -40,7 +40,7 @@ const jaratokSzama = async () => {
     try {
         const response = await fetch('http://192.168.0.222:24001/felvitel');
         const json = await response.json();
-        setData(json);
+        setData(json); // # ???
     } catch (error) {
         console.error(error);
     } finally {
