@@ -143,17 +143,16 @@ const styles = StyleSheet.create({
 
     picker_box: {
         width: 250,
-        alignSelf: "center"
+        alignSelf: "center",
+        borderWidth: 1,
+        borderRadius: 25,
     },
 
     picker: {
-        backgroundColor: "#42adf5",
-        color: "white",
-        borderWidth: 1,
-        borderRadius: 15,
+        backgroundColor: "#fff",
+        color: "black",
         marginTop: 10,
         marginBottom: 10,
-        textAlign: "center"
     },
 
     rate_comment_input: {

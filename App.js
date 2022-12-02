@@ -2,7 +2,7 @@ import React from "react";
 import { Button, View } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
-import Schedule from "./Schedules";
+import Schedule from "./components/Schedules";
 import AdminOldal from "./components/AdminPage";
 import FoOldal from "./components/MainPage";
 import Ertesitesek from "./components/Notifications";
