@@ -10,6 +10,7 @@ export default class Velemeny extends Component {
         this.state = {
             data: "",
             velemeny: "",
+            jaratszam: 0,
             ratingComfort: 5,
             ratingTime: 5,
             ratingTraffic: 5,
@@ -55,8 +56,35 @@ export default class Velemeny extends Component {
         console.log("Ez a véleményem:", this.state.velemeny)
     }
 
-    nyelv_valtoztat_pickerrel = (ertek) => {
-        this.setState({ nyelv: ertek })
+    kattintas = async (valamiid) => {
+        this.setState({ tema: valamiid })
+        //alert(valamiid)
+        //uzenet backend végpont meghívása
+        try {
+            let adatok = {
+                jaratszam: a,
+                bevitel1: valamiid
+            }
+            const response = await fetch('http://192.168.6.22:3000/uzenet',
+                {
+                    method: "POST",
+                    body: JSON.stringify(adatok),
+                    headers: { "Content-type": "application/json; charset=UTF-8" }
+                }
+            );
+            const json = await response.json();
+            //alert(JSON.stringify(json))
+            //console.log(json)
+            this.setState({ datauzenet: json });
+        } catch (error) {
+            console.log(error);
+        } finally {
+            this.setState({ isLoading: false });
+        }
+    }
+
+    jaratszam_valaszto = (ertek) => {
+        this.setState({ jaratszam: ertek })
     }
 
     componentDidMount() {
@@ -74,8 +102,8 @@ export default class Velemeny extends Component {
                         <Picker
                             style={styles.picker}
                             mode='dropdown'
-                            selectedValue={this.state.nyelv}
-                            onValueChange={(itemValue) => this.nyelv_valtoztat_pickerrel(itemValue)
+                            selectedValue={this.state.jaratszam}
+                            onValueChange={(itemValue) => this.jaratszam_valaszto(itemValue)
                             }>
                             {this.state.jaratok.map((elem) =>
                                 <Picker.Item key='A' label={elem.route_short_name} value={elem.route_id} />
@@ -142,16 +170,13 @@ const styles = StyleSheet.create({
     },
 
     picker_box: {
-        width: 250,
-        alignSelf: "center",
-        borderWidth: 1,
-        borderRadius: 25,
+        width: 300,
+        alignSelf: "center"
     },
 
     picker: {
         backgroundColor: "#fff",
         color: "black",
-        marginTop: 10,
         marginBottom: 10,
     },
 
