@@ -8,6 +8,7 @@ import FoOldal from "./components/MainPage";
 import Ertesitesek from "./components/Notifications";
 import Fiok from "./components/Profile";
 import Ertekeles from "./components/Rating";
+import Velemenyek from "./components/Opinions"
 
 function MainPage({ navigation }) {
   return <FoOldal />;
@@ -33,6 +34,10 @@ function Rating({ navigation }) {
   return <Ertekeles />;
 }
 
+function Opinions({ navigation }) {
+  return <Velemenyek />;
+}
+
 const Drawer = createDrawerNavigator();
 
 export default function App() {
@@ -45,6 +50,7 @@ export default function App() {
         <Drawer.Screen name="Járatok" component={Buses} />
         <Drawer.Screen name="Bejelentkezés" component={SignInbtn} />
         <Drawer.Screen name="Értékelés" component={Rating} />
+        <Drawer.Screen name="Vélemények" component={Opinions} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

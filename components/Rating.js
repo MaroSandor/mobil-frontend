@@ -62,10 +62,13 @@ export default class Velemeny extends Component {
         //uzenet backend végpont meghívása
         try {
             let adatok = {
-                jaratszam: a,
-                bevitel1: valamiid
+                jaratszam: this.state.jaratszam,
+                comfort: this.state.ratingComfort,
+                time: this.state.ratingTime,
+                traffic: this.state.ratingTraffic,
+                velemeny: this.state.velemeny,
             }
-            const response = await fetch('http://192.168.6.22:3000/uzenet',
+            const response = await fetch('http://192.168.154.97:24001/felvitel',
                 {
                     method: "POST",
                     body: JSON.stringify(adatok),
@@ -73,8 +76,6 @@ export default class Velemeny extends Component {
                 }
             );
             const json = await response.json();
-            //alert(JSON.stringify(json))
-            //console.log(json)
             this.setState({ datauzenet: json });
         } catch (error) {
             console.log(error);
