@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View, Text } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default class ButtonBasics extends Component {
-  _onPressButton() {
-    alert('You tapped the button!')
-  }
-
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
-          <Button
-            onPress={this._onPressButton}
-            title="Press Me"
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            onPress={this._onPressButton}
-            title="Press Me"
-            color="#841584"
-          />
+          <Text>
+            <MaterialIcons name='home' style={{ fontSize: 50 }} />
+          </Text>
         </View>
         <View style={styles.alternativeLayoutButtonContainer}>
           <Button

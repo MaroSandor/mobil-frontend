@@ -49,14 +49,7 @@ export default class Velemeny extends Component {
         }
     }
 
-    felvitel = () => {
-        console.log(this.state.ratingComfort);
-        console.log(this.state.ratingTime);
-        console.log(this.state.ratingTraffic);
-        console.log("Ez a véleményem:", this.state.velemeny)
-    }
-
-    kattintas = async (valamiid) => {
+    felvitel = async (valamiid) => {
         this.setState({ tema: valamiid })
         //alert(valamiid)
         //uzenet backend végpont meghívása
@@ -93,8 +86,6 @@ export default class Velemeny extends Component {
     }
 
     render() {
-        const { jaratok, isLoading } = this.state;
-
         return (
             <View style={styles.main_content}>
                 <ImageBackground source={this.state.image} resizeMode="cover" style={styles.image}>
