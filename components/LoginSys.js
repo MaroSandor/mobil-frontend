@@ -45,20 +45,6 @@ export default class App extends Component {
     this.getLogin();
   }
 
-  lekerdez = () => {
-    // this.state.data.map((elem) => this.setState({ elemUn: elem.user_name }));
-    for (let index = 0; index < this.state.data.length; index++) {
-      alert(this.state.data);
-    }
-    // if (this.state.elemUn == this.state.username ) {
-    //   alert("Működik!");
-    // } else {
-    //   alert("Nem jó!");
-    // }
-  };
-
-  nevEllenoriz = () => {};
-
   render() {
     const { data, isLoading } = this.state;
     return (
