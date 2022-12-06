@@ -20,6 +20,10 @@ export default class Velemeny extends Component {
         };
     }
 
+    jaratszam = (jarat) => {
+        this.setState({ jaratszam: jarat })
+    }
+
     ratingComfort = (rating) => {
         this.setState({ ratingComfort: rating });
     };
@@ -36,7 +40,7 @@ export default class Velemeny extends Component {
         this.setState({ velemeny: text });
     };
 
-    async jaratokLekeres() {
+    jaratokLekeres = async () => {
         try {
             const response = await fetch('http://192.168.154.97:24001/jaratok');
             const json = await response.json();
@@ -49,10 +53,7 @@ export default class Velemeny extends Component {
         }
     }
 
-    felvitel = async (valamiid) => {
-        this.setState({ tema: valamiid })
-        //alert(valamiid)
-        //uzenet backend végpont meghívása
+    felvitel = async () => {
         try {
             let adatok = {
                 jaratszam: this.state.jaratszam,
@@ -69,16 +70,12 @@ export default class Velemeny extends Component {
                 }
             );
             const json = await response.json();
-            this.setState({ datauzenet: json });
+            console.log(json)
         } catch (error) {
             console.log(error);
         } finally {
             this.setState({ isLoading: false });
         }
-    }
-
-    jaratszam_valaszto = (ertek) => {
-        this.setState({ jaratszam: ertek })
     }
 
     componentDidMount() {
@@ -95,7 +92,7 @@ export default class Velemeny extends Component {
                             style={styles.picker}
                             mode='dropdown'
                             selectedValue={this.state.jaratszam}
-                            onValueChange={(itemValue) => this.jaratszam_valaszto(itemValue)
+                            onValueChange={(itemValue) => this.jaratszam(itemValue)
                             }>
                             {this.state.jaratok.map((elem) =>
                                 <Picker.Item key='A' label={elem.route_short_name} value={elem.route_id} />
