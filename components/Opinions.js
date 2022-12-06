@@ -24,9 +24,11 @@ export default class Opinions extends Component {
     }
   }
 
-  render() {
-    const { jaratok, isLoading } = this.state;
-    
+  componentDidMount() {
+    this.velemenyekLekeres()
+  }
+
+  render() {    
     return (
       <View style={styles.container}>
         {this.state.velemenyek.map((elem) =>
