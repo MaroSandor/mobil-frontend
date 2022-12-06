@@ -50,10 +50,6 @@ function Opinions({ navigation }) {
 const Drawer = createDrawerNavigator();
 
 export default function App() {
-  const dimensions = useWindowDimensions();
-
-  const isLargeScreen = dimensions.width >= 768;
-
   return (
     <NavigationContainer>
       <Drawer.Navigator useLegacyImplementation initialRouteName="Főoldal">
