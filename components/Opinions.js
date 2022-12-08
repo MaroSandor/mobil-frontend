@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, DevSettings } from "react-native";
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, DevSettings, Modal, Pressable } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default class Opinions extends Component {
@@ -9,6 +9,7 @@ export default class Opinions extends Component {
     this.state = {
       velemenyek: [],
       isLoading: true,
+      modalVisible: false
     };
   }
 
@@ -25,44 +26,78 @@ export default class Opinions extends Component {
     }
   }
 
+  reszletek = () => {
+    for (let index = 0; index < this.state.velemenyek.length; index++) {
+      const element = this.state.velemenyek[index];
+      return element.opinion_comment
+    }
+  }
+
+  reszletek_megjelenit = (visible) => {
+    this.setState({ modalVisible: visible });
+  }
+
   componentDidMount() {
     this.velemenyekLekeres();
   }
 
   render() {
+    const { modalVisible } = this.state;
+
     return (
       <ScrollView>
-      <View style={styles.main_container}>
-        {this.state.velemenyek.map((elem) => (
-          <View style={styles.container}>
-            <View style={styles.jarat_box}>
-              <Text style={styles.jarat_szam} key={elem.route_short_name.toString()}>
-                {elem.route_short_name}
-              </Text>
-            </View>
-            <View style={styles.jarat_velemeny}>
-              <View style={styles.comfort}>
-                <Text style={styles.text} key={elem.route_short_name.toString()}>
-                  <Text style={{ color: 'red' }}>Kényelem: </Text>{elem.comfort}
+        <View style={styles.main_container}>
+          {this.state.velemenyek.map((elem) => (
+            <View style={styles.container}>
+              <View style={styles.jarat_box}>
+                <Text style={styles.jarat_szam} key={elem.route_short_name.toString()}>
+                  {elem.route_short_name}
                 </Text>
               </View>
-              <View style={styles.comfort}>
-                <Text style={styles.text} key={elem.route_short_name.toString()}>
-                  <Text style={{ color: 'red' }}>Forgalom: </Text>{elem.crowd}
-                </Text>
-              </View>
-              <View style={styles.comfort}>
-                <Text style={styles.text} key={elem.route_short_name.toString()}>
-                  <Text style={{ color: 'red' }}>Idő: </Text>{elem.ido}
-                </Text>
+              <View style={styles.jarat_velemeny}>
+                <TouchableOpacity onPress={() => this.reszletek_megjelenit(true)}>
+                  <View style={styles.comfort}>
+                    <Text style={styles.text} key={elem.route_short_name.toString()}>
+                      <Text key={elem.route_short_name.toString()} style={{ color: 'red' }}>Kényelem: </Text>{elem.comfort}
+                    </Text>
+                  </View>
+                  <View style={styles.comfort}>
+                    <Text style={styles.text} key={elem.route_short_name.toString()}>
+                      <Text key={elem.route_short_name.toString()} style={{ color: 'red' }}>Forgalom: </Text>{elem.crowd}
+                    </Text>
+                  </View>
+                  <View style={styles.comfort}>
+                    <Text style={styles.text} key={elem.route_short_name.toString()}>
+                      <Text key={elem.route_short_name.toString()} style={{ color: 'red' }}>Idő: </Text>{elem.ido}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
-            <View style={styles.jarat_comment}>
-              <MaterialIcons style={styles.icon} name="arrow-right" />
+          ))}
+        </View>
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Pressable
+                  style={styles.close_btn}
+                  onPress={() => this.reszletek_megjelenit(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>
+                    <MaterialIcons style={{ color: 'black', fontSize: 50 }} name="cancel" />
+                  </Text>
+                </Pressable>
+                <Text>{this.reszletek()}</Text>
+                {/* CONTENT */}
+              </View>
             </View>
-          </View>
-        ))}
-      </View>
+          </Modal>
+        </View>
       </ScrollView>
     );
   }
@@ -93,7 +128,9 @@ const styles = StyleSheet.create({
     flex: 5,
     backgroundColor: "#a1a1a1",
     justifyContent: 'center',
-    paddingLeft: 15
+    paddingLeft: 15,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
   },
 
   jarat_szam: {
@@ -115,12 +152,47 @@ const styles = StyleSheet.create({
     backgroundColor: "#555",
     justifyContent: "center",
     alignItems: "center",
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
   },
 
   icon: {
     fontSize: 50,
     color: 'white'
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  close_btn: {
+    alignSelf: 'flex-end'
+  },
+
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2
+  },
+
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
   }
 });
