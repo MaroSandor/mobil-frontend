@@ -30,7 +30,7 @@ export default class App extends Component {
 
   async getLogin() {
     try {
-      const response = await fetch("http://192.168.154.97:24001/login");
+      const response = await fetch("http://maro-sandor-peter.dszcbaross.tk/login");
       const json = await response.json();
       this.setState({ data: json });
       console.log(this.state.data);

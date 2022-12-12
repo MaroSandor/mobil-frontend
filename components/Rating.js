@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, TextInput, Pressable, ActivityIndicator, FlatList, TouchableOpacity, ImageBackground, Image } from "react-native";
+import { StyleSheet, View, Text, TextInput, Pressable, ActivityIndicator, FlatList, TouchableOpacity, ImageBackground, Image, DevSettings } from "react-native";
 import { AirbnbRating } from "react-native-ratings";
 import { Picker } from '@react-native-picker/picker';
 
@@ -20,8 +20,8 @@ export default class Velemeny extends Component {
         };
     }
 
-    jaratszam = (jarat) => {
-        this.setState({ jaratszam: jarat })
+    jaratszam_valaszto = (ertek) => {
+        this.setState({ jaratszam: ertek })
     }
 
     ratingComfort = (rating) => {
@@ -42,7 +42,7 @@ export default class Velemeny extends Component {
 
     jaratokLekeres = async () => {
         try {
-            const response = await fetch('http://192.168.154.97:24001/jaratok');
+            const response = await fetch('http://maro-sandor-peter.dszcbaross.tk/jaratok');
             const json = await response.json();
             console.log(json)
             this.setState({ jaratok: json });
@@ -56,13 +56,13 @@ export default class Velemeny extends Component {
     felvitel = async () => {
         try {
             let adatok = {
-                jaratszam: this.state.jaratszam,
+                jaratszam: this.state.jarat_value,
                 comfort: this.state.ratingComfort,
                 time: this.state.ratingTime,
                 traffic: this.state.ratingTraffic,
                 velemeny: this.state.velemeny,
             }
-            const response = await fetch('http://192.168.154.97:24001/felvitel',
+            const response = await fetch('http://maro-sandor-peter.dszcbaross.tk/felvitel',
                 {
                     method: "POST",
                     body: JSON.stringify(adatok),
@@ -92,7 +92,7 @@ export default class Velemeny extends Component {
                             style={styles.picker}
                             mode='dropdown'
                             selectedValue={this.state.jaratszam}
-                            onValueChange={(itemValue) => this.jaratszam(itemValue)
+                            onValueChange={(itemValue) => this.jaratszam_valaszto(itemValue)
                             }>
                             {this.state.jaratok.map((elem) =>
                                 <Picker.Item key='A' label={elem.route_short_name} value={elem.route_id} />

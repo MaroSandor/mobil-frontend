@@ -9,13 +9,19 @@ export default class Opinions extends Component {
     this.state = {
       velemenyek: [],
       isLoading: true,
-      modalVisible: false
+      modalVisible: false,
+      id: 0,
+      reszletkerdes: "",
+      jaratszam: 0,
+      comfort: 5,
+      time: 5,
+      crowd: 5
     };
   }
 
   async velemenyekLekeres() {
     try {
-      const response = await fetch("http://192.168.154.97:24001/velemenyek");
+      const response = await fetch("http://maro-sandor-peter.dszcbaross.tk/velemenyek");
       const json = await response.json();
       console.log(json);
       this.setState({ velemenyek: json });
@@ -26,10 +32,12 @@ export default class Opinions extends Component {
     }
   }
 
-  reszletek = () => {
+  reszletek = (id) => {
     for (let index = 0; index < this.state.velemenyek.length; index++) {
       const element = this.state.velemenyek[index];
-      return element.opinion_comment
+      if (element.route_id == id) {
+        this.setState({ reszletkerdes: element.opinion_comment })
+      }
     }
   }
 
@@ -45,17 +53,17 @@ export default class Opinions extends Component {
     const { modalVisible } = this.state;
 
     return (
-      <ScrollView>
+      <ScrollView key={'valami'}>
         <View style={styles.main_container}>
           {this.state.velemenyek.map((elem) => (
-            <View style={styles.container}>
+            <View key={elem.route_id} style={styles.container}>
               <View style={styles.jarat_box}>
                 <Text style={styles.jarat_szam} key={elem.route_short_name.toString()}>
                   {elem.route_short_name}
                 </Text>
               </View>
               <View style={styles.jarat_velemeny}>
-                <TouchableOpacity onPress={() => this.reszletek_megjelenit(true)}>
+                <TouchableOpacity key={elem.route_id} onPress={() => { this.reszletek_megjelenit(true), this.reszletek(elem.route_id) }}>
                   <View style={styles.comfort}>
                     <Text style={styles.text} key={elem.route_short_name.toString()}>
                       <Text key={elem.route_short_name.toString()} style={{ color: 'red' }}>Kényelem: </Text>{elem.comfort}
@@ -84,15 +92,22 @@ export default class Opinions extends Component {
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
+                <View style={styles.modalContent}>
+                  <Text style={styles.modal_main_title}>Részletes vélemény:</Text>
+                  {this.state.reszletkerdes != ""
+                  ?
+                  <Text>{this.state.reszletkerdes}</Text>
+                  :
+                  <Text>Ennél az értékelésnél nincs részletes vélemény!</Text>
+                  }
+                </View>
                 <Pressable
-                  style={styles.close_btn}
                   onPress={() => this.reszletek_megjelenit(!modalVisible)}
                 >
-                  <Text style={styles.textStyle}>
+                  <Text style={[styles.textStyle, { marginTop: 25 }]}>
                     <MaterialIcons style={{ color: 'black', fontSize: 50 }} name="cancel" />
                   </Text>
                 </Pressable>
-                <Text>{this.reszletek()}</Text>
                 {/* CONTENT */}
               </View>
             </View>
