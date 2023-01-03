@@ -1,19 +1,19 @@
 import React from "react";
-import { Button, View, Text, useWindowDimensions } from "react-native";
+import { Button, View, Text, useWindowDimensions0 } from "react-native";
 import {
   createDrawerNavigator,
   useDrawerStatus,
 } from "@react-navigation/drawer";
 import { MaterialIcons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
-import Schedule from "./components/Schedules";
-import AdminOldal from "./components/AdminPage";
-import FoOldal from "./components/MainPage";
-import Ertesitesek from "./components/Notifications";
-import Fiok from "./components/Profile";
-import Ertekeles from "./components/Rating";
-import Velemenyek from "./components/Opinions";
-import VectorIcons from "./components/VectorIcons";
+import Schedule from "../frontend-mobil/components/Schedules";
+import AdminOldal from "../frontend-mobil/components/AdminPage";
+import FoOldal from "../frontend-mobil/components/MainPage";
+import Ertesitesek from "../frontend-mobil/components/Notifications";
+import Fiok from "../frontend-mobil/components/Profile";
+import Ertekeles from "../frontend-mobil/components/Rating";
+import Velemenyek from "../frontend-mobil/components/Opinions";
+import VectorIcons from "../frontend-mobil/components/VectorIcons";
 
 function MainPage({ navigation }) {
   return <FoOldal />;
